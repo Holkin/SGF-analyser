@@ -14,17 +14,15 @@ public class BoardPanel extends JPanel {
 
     private final int padding = 20;
     private final int hoshiR = 2;
-    private final int hoshiOff = 2;
-//    private final int hoshiOff = 3;
-    private final int lines = 52;
-//    private final int lines = 18;
+    private final int hoshiOff = 3;
+    private final int lines = 18;
 
     @Autowired
     private Board boad;
 
     @PostConstruct
     public void init() {
-        boad.place(Stone.BLACK, 4, 4);
+        boad.place(Stone.BLACK, 3, 3).place(Stone.WHITE,3,2).place(Stone.WHITE, 18, 18).place(Stone.WHITE, 0, 0);
     }
 
     @Override
@@ -36,7 +34,7 @@ public class BoardPanel extends JPanel {
         size = step * lines;
         drawBoard(size, 30, 20, g);
         int x = 30, y = 20;
-        int stoneR = step - 2;
+        int stoneR = step/2 - 1;
         for (int i=0; i<boad.a().length; i++) {
             for (int j=0; j<boad.a().length; j++) {
                 Stone stone = boad.a()[i][j];
@@ -47,7 +45,9 @@ public class BoardPanel extends JPanel {
                     g.setColor(Color.black);
                 }
                 if (stone != null) {
-                    g.fillOval(x + i + i*step - stoneR, y + j + j*step - stoneR, stoneR*2-1, stoneR*2-1);
+                    g.fillOval(x + i*step - stoneR, y + j*step - stoneR, stoneR*2-1, stoneR*2-1);
+                    g.setColor(Color.black);
+                    g.drawOval(x + i*step - stoneR, y + j*step - stoneR, stoneR*2-1, stoneR*2-1);
                 }
             }
         }
